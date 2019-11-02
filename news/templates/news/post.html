@@ -1,0 +1,21 @@
+{% extends "mainApp/base.html" %}
+
+{% block content %}
+<a href="/news">Back</a>
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="{% url 'user-posts' articles.author.username%}">{{ articles.author }}</a>
+      <small class="text-muted">{{ articles.date|date:"d-m-Y в H:i" }}</small>
+      {% if articles.author == user %}
+      <div>
+	      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+	      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+	  </div>
+      {% endif %}
+    </div>
+    <h2 class="article-title">{{ articles.title }}</h2>
+    <p class="article-content">{{ articles.text|safe|linebreaks }}</p>
+  </div>
+</article>
+{% endblock %}
